@@ -1,0 +1,17 @@
+body {
+    padding-top: 56px;
+}
+
+.footer {
+    padding: 1rem 0;
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+.container {
+    max-width: 800px;
+}
+
+h2 {
+    color: #007bff;
+}

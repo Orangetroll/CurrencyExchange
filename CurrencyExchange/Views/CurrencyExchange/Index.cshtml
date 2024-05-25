@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Currency Exchange";
+    var currencies = ViewBag.Currencies as List<CurrencyExchange.Models.Currency>;
+}
+
+<div class="container">
+    <h2 class="mt-4 mb-4 text-center">Currency Exchange</h2>
+    <form method="post" asp-action="Convert" class="mt-4">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="fromCurrency">From:</label>
+                <select class="form-control" id="fromCurrency" name="fromCurrency" required>
+                    <option value="" disabled selected>Select currency</option>
+                    @foreach (var currency in currencies)
+                    {
+                        <option value="@currency.Code">@currency.Name (@currency.Code)</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="toCurrency">To:</label>
+                <select class="form-control" id="toCurrency" name="toCurrency" required>
+                    <option value="" disabled selected>Select currency</option>
+                    @foreach (var currency in currencies)
+                    {
+                        <option value="@currency.Code">@currency.Name (@currency.Code)</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="amount">Amount:</label>
+                <input type="number" class="form-control" id="amount" name="amount" required />
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary mt-3">Convert</button>
+        </div>
+    </form>
+
+    @if (ViewData["Result"] != null)
+    {
+        <div class="alert alert-success mt-4 text-center">
+            <h4>Converted Amount: @ViewData["Result"] @ViewData["ResultCurrency"]</h4>
+        </div>
+    }
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger mt-4">
+            <h4>Errors:</h4>
+            <ul>
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+</div>
